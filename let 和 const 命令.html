@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        {
+            let a = 10;
+            var b = 20;
+        }
+        // console.log(a);   //Uncaught ReferenceError: a is not defined    这表明，let声明的变量只在它所在的代码块有效
+        // console.log(b);   //20
+        
+
+
+        for(let i=0 ;i < 10; i++){
+            console.log(i);    //0,1,2,...9
+        }
+        // console.log(i);    // ReferenceError: i is not defined   这表明，let的i只在for循环体里才有效，循环体之外就报错
+        
+
+
+        var a=[]
+        for(var i=0;i<10;i++){
+            // a[i] = function(){
+            //     console.log(i);
+            // }
+        }
+        // a[6]();   //10
+        console.log(i); //10    这说明var声明的i是全局变量，全局有效，也就是所，无论i怎么变，都是全局的那个i在变，所以i就是最后的运算结果
+
+
+
+        //for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。
+        for(let c =0;c<10;c++ ){
+            let c = 'abc';
+            // let c = 'ccc';     //Uncaught SyntaxError: Identifier 'c' has already been declared  此时因为再同个代码块中，存在着两个let c变量，是不允许的。
+            console.log(c);    //循环显示10次abc，虽然let声明的变量不能再次声明，但是for循环里，设置变量的部分是父级，循环体内是子集，不冲突
+            
+        }
+
+        let h = 22
+        if (true){
+            let h = 12
+            console.log(h);   //12
+            
+        }
+        
+
+
+        //let不存在变量提升
+
+        //因为var声明的变量存在变量提升，所以再声明之前使用的话，值为undefined
+        //而let是不存在变量提升的，所以再声明之前使用的话，会报错
+        {
+            console.log(d); 
+            var d = 10;    //undefined
+
+            // console.log(e);
+            // let e =10;    //Uncaught ReferenceError: e is not defined
+            
+        }
+
+
+
+        //暂时性死区
+
+        //总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称 TDZ）。
+        var tmp = 123;
+        if (true){
+            tmp = 'abc'
+            console.log(tmp);   //abc  没用let声明前，可以输出
+        
+            // let tmp   //上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以在let声明变量前，对tmp赋值会报错。
+        }
+
+        // if (true) {
+        // // TDZ开始
+        // tmp = 'abc'; // ReferenceError
+        // console.log(tmp); // ReferenceError
+
+        // let tmp; // TDZ结束
+        // console.log(tmp); // undefined
+
+        // tmp = 123;
+        // console.log(tmp); // 123
+        // }
+
+
+
+
+        //不允许重复声明
+        // {
+        //     let f = 1;
+        //     var f = 2;
+        //     console.log(f);   //Uncaught SyntaxError: Identifier 'f' has already been declared
+        // }
+
+        // {
+        //     var f = 2;
+        //     let f = 1;    //Uncaught SyntaxError: Identifier 'f' has already been declared
+        //     console.log(f);
+        // }
+
+
+
+        //为什么需要块级作用域？
+        var tmp = new Date();
+
+        function f() {
+        console.log(tmp);
+        if (false) {
+            var tmp = 'hello world';
+        }
+        }
+
+        f(); // undefined     原因是变量提升内层的tmp覆盖了外层的tmp
+
+        function f1() {
+        let n = 5;
+        if (true) {
+            let n = 10;
+        }
+        console.log(n); // 5   不关if块的事情
+        }
+
+
+        {
+            let j = 90;
+            {
+                j=10;
+                console.log(j);  //10     表明外层不能访问内存的变量，内层可以改变外层已经定义的变量
+            }
+        }
+
+
+
+
+        //ES6 引入了块级作用域，明确允许在块级作用域之中声明函数。ES6 规定，块级作用域之中，函数声明语句的行为类似于let，在块级作用域之外不可引用。
+        // 允许在块级作用域内声明函数。
+        // 函数声明类似于var，即会提升到全局作用域或函数作用域的头部。
+        // 同时，函数声明还会提升到所在的块级作用域的头部。
+        function f() { console.log('I am outside!'); }
+
+        (function () {
+        // if (false) {
+        //     // 重复声明一次函数f
+        //     function f() { console.log('I am inside!'); }     //f is not a function  不能再次声明，和let一样
+        // }
+        // if (true) {
+        //     // 重复声明一次函数f
+        //     function f() { console.log('I am inside!'); }     //I am inside!
+        // }
+        function f() { console.log('I am inside!'); }   //I am inside!
+        f();
+        }());
+
+
+
+
+
+
+
+        //const声明的常量，也与let一样不可重复声明。就是定义了不能改变而已
+
+
+
+
+        //顶层对象的属性
+        window.k=88
+        console.log(k);   //88
+        
+        var k=77
+        console.log(k);   //77
+        //上面代码中，顶层对象的属性赋值与全局变量的赋值，是同一件事。
+        
+
+        // 从 ES6 开始，全局变量将逐步与顶层对象的属性脱钩。
+        var a = 1;
+        // 如果在 Node 的 REPL 环境，可以写成 global.a
+        // 或者采用通用方法，写成 this.a
+        console.log(window.a);// 1
+
+        let l = 1;
+        console.log(window.l);// undefined
+    </script>
+</body>
+</html>
