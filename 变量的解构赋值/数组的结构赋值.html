@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //以前
+        // let a = 1
+        // let b = 2
+        // let c = 3
+        //es6
+        let [a,b,c] = [1,2,3]
+        console.log(a,b,c);   //1,2,3
+        
+        let [d,e] = [1,2,3]
+        console.log(d,e);    //1,2
+         
+        let [f,g,h] = [1,2]
+        console.log(f,g,h);  //1,2,undefined
+
+        let [ , , third] = ["foo", "bar", "baz"];
+        console.log(third);  //baz
+
+        let [i,...j] = [1,2,3,4,5]
+        console.log(i,j);  //1,[2,3,4,5]
+        
+
+        //如果等号的右边不是数组（或者严格地说，不是可遍历的结构，参见《Iterator》一章），那么将会报错。
+        //都报错
+        // let [foo] = 1;
+        // let [foo] = false;
+        // let [foo] = NaN;
+        // let [foo] = undefined;
+        // let [foo] = null;
+        // let [foo] = {};
+
+
+        //默认值
+        let [k = 'k'] = []    //k  
+        let [l,m='m'] = ['l']  //l,m
+        let [n='2',o] = ['n','o']  //n,o
+        console.log(k,l,m,n,o);
+
+        
+        
+    </script>
+</body>
+</html>
