@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符串的解构赋值</title>
+</head>
+<body>
+    <script>
+        let [a,b,c,d,e] = "hello"
+        console.log(a,b,c,d,e);
+        
+
+        //类似数组的对象都有一个length属性，因此还可以对这个属性解构赋值。
+
+        let {length : f} = 'hello';
+        console.log(f);   //5
+        
+    </script>
+</body>
+</html>

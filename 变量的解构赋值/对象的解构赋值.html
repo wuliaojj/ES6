@@ -4,11 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>对象的解构赋值</title>
 </head>
 <body>
     
     <script>
+        let {a,b}={a:"aaa",b:'bbb'}
+        console.log(a,b);
+        
+
+        let {c,d}={d:'ddd',c:'ccc'}
+        console.log(c,d);     //与数组不同，对象是根据属性名来赋值的，鱼位置无关
+
+        let {e:f}={e:'eee'}
+        console.log(f);   //eee
+
+        // let {g:i,h:j}={g:"iii",h:"jjj"}
+        // console.log(i,j);   //iii,jjj
+        
+
+        let obj={g:"iii",h:"jjj"}
+        let {g:i,h:j} = obj
+        console.log(i,j);   //iii,jjj
+        // console.log(g);   //Uncaught ReferenceError: g is not defined   真正被赋值的是i，而不是g
+        
+        
+        // let obj = {
+        // p: [
+        //     'Hello',
+        //     { y: 'World' }
+        // ]
+        // };
+
+        // let { p: [x, { y }] } = obj;
+        // x // "Hello"
+        // y // "World"
+
+
+        //对象的解构赋值也可以指定默认值
+        let {k="k"}={}
+        console.log(k);  //k
+
+
+        let {m,n=1}={m:2}
+        console.log(m,n);  //2,1
+        
+
+        let {o:p=3}={}
+        // console.log(o,p);  //o is not defined
+        
+        let {q:r=3}={q:4}
+        console.log(r);  //4    别赋值的不是q，而是r
+
         
     </script>
 </body>

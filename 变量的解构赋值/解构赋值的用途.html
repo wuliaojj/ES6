@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //交换变量的值
+        let x = 1;
+        let y = 2;
+        [x, y] = [y, x];
+        console.log(x,y);
+
+
+
+        //从函数返回多个值
+        function example() {
+        return [1, 2, 3];
+        }
+        let [a, b, c] = example();
+
+        // 返回一个对象
+
+        function example() {
+        return {
+            foo: 1,
+            bar: 2
+        };
+        }
+        let { foo, bar } = example();
+        
+
+        // 提取 JSON 数据
+        let jsonData = {
+        id: 42,
+        status: "OK",
+        data: [867, 5309]
+        };
+
+        let { id, status, data: number } = jsonData;
+
+        console.log(id, status, number);
+        // 42, "OK", [867, 5309]
+
+
+        // 输入模块的指定方法
+        const { SourceMapConsumer, SourceNode } = require("source-map");
+    </script> 
+</body>
+</html>
